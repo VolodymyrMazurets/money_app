@@ -1,6 +1,18 @@
 import type { Dayjs } from "dayjs";
 import React, { useCallback, useState } from "react";
-import { Button, Calendar, Col, Drawer, Row, Space, Table } from "antd";
+import {
+  Button,
+  Calendar,
+  Col,
+  DatePicker,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Select,
+  Space,
+  Table,
+} from "antd";
 import type { CalendarProps } from "antd";
 import { ColumnsType } from "antd/es/table";
 import {
@@ -8,6 +20,8 @@ import {
   DeleteOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
+
+const { Option } = Select;
 
 interface DataType {
   key: string;
@@ -124,20 +138,60 @@ const HomeContainer: React.FC = () => {
       <Button
         type="primary"
         shape="circle"
-        size="large" 
+        size="large"
         onClick={showDrawer}
         icon={<PlusCircleOutlined />}
-        style={{position: 'fixed', right: '20px', bottom: '50px'}}
+        style={{ position: "fixed", right: "20px", bottom: "50px" }}
       />
       <Drawer
         title="Add new transaction"
         placement="right"
         onClose={onClose}
         open={open}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose} type="primary">
+              Submit
+            </Button>
+          </Space>
+        }
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Form layout="vertical">
+          <Form.Item name="type" label="Type" rules={[{ required: true, message: "Please select type" }]}>
+            <Select placeholder="Please select type">
+              <Option value="income">Income</Option>
+              <Option value="expense">Expense</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="category"
+            label="Category"
+            rules={[{ required: true, message: "Please select category" }]}
+          >
+            <Select placeholder="Please select an category">
+              <Option value="food">Food</Option>
+              <Option value="car">Car</Option>
+              <Option value="salary">Salary</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="value"
+            label="Vaue"
+            rules={[{ required: true, message: "Please input value" }]}
+          >
+            <Input placeholder="Please input value" />
+          </Form.Item>
+          <Form.Item
+            name="comment"
+            label="Comment"
+          >
+            <Input.TextArea
+              rows={4}
+              placeholder="Please enter comment"
+            />
+          </Form.Item>
+        </Form>
       </Drawer>
     </>
   );

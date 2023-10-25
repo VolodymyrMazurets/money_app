@@ -55,18 +55,20 @@ export default function RootLayout({
                   items={renderMenuItems}
                 />
               </Sider>
-              <Layout style={{ padding: 24 }}>
+              <Layout>
                 <Content
                   style={{
+                    overflow: "auto",
                     padding: 24,
                     margin: 0,
                     minHeight: 280,
-                    background: colorBgContainer,
-                    overflow: 'auto',
-                    borderRadius: 12
                   }}
                 >
-                  {children}
+                  <div
+                    style={{ background: colorBgContainer, borderRadius: 12 }}
+                  >
+                    {children}
+                  </div>
                 </Content>
               </Layout>
             </Layout>
